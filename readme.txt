@@ -1,21 +1,17 @@
 Halaman Admin
->>>>>>>>>>>>>
 username = admin
 password = admin
 
 Halaman Kasir
->>>>>>>>>>>>>
-username = kasirmerah
-password = kasirmerah
+username = kasir
+password = kasir
 
-username = kasirputih
-password = kasirputih
+username = kasir2
+password = kasir2
 
 Halaman Owner
->>>>>>>>>>>>>
 username = owner
 password = owner
 
-#gimme more stars :)
 
 

@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.2
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 05, 2020 at 01:16 PM
--- Server version: 10.4.13-MariaDB
--- PHP Version: 7.4.8
+-- Generation Time: Dec 02, 2025 at 11:32 AM
+-- Server version: 10.4.32-MariaDB
+-- PHP Version: 8.0.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -35,18 +35,16 @@ CREATE TABLE `detail_transaksi` (
   `total_harga` double NOT NULL,
   `keterangan` text NOT NULL,
   `total_bayar` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `detail_transaksi`
 --
 
 INSERT INTO `detail_transaksi` (`id_detail`, `id_transaksi`, `id_paket`, `qty`, `total_harga`, `keterangan`, `total_bayar`) VALUES
-(16, 36, 20, 20, 44000, '', 500000),
-(17, 37, 20, 50, 110000, '', 200000),
-(18, 39, 21, 15, 21000, '', 25000),
-(19, 40, 20, 10, 22000, '', 0),
-(20, 41, 20, 10, 22000, '', 50000);
+(20, 41, 20, 10, 22000, '', 50000),
+(21, 42, 20, 2, 4400, '', 5000),
+(22, 43, 25, 2, 30000, '', 50000);
 
 -- --------------------------------------------------------
 
@@ -56,20 +54,18 @@ INSERT INTO `detail_transaksi` (`id_detail`, `id_transaksi`, `id_paket`, `qty`, 
 
 CREATE TABLE `outlet` (
   `id_outlet` int(11) NOT NULL,
-  `nama_outlet` varchar(228) CHARACTER SET utf8mb4 DEFAULT NULL,
-  `alamat_outlet` text CHARACTER SET utf8mb4 DEFAULT NULL,
-  `telp_outlet` varchar(15) CHARACTER SET utf8mb4 DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `nama_outlet` varchar(228) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `alamat_outlet` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `telp_outlet` varchar(15) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `outlet`
 --
 
 INSERT INTO `outlet` (`id_outlet`, `nama_outlet`, `alamat_outlet`, `telp_outlet`) VALUES
-(9, 'Outlet Merah', 'Yogyakarta, Indonesia', '08555555555'),
-(10, 'Outlet Putih', 'Bantul, Yogyakarta, Indonesia', '081222222222'),
-(11, 'Outlet Biru', 'Bantul, Daerah Istimewa Yogyakarta', '081223446312'),
-(12, 'Outlet Abu-abu', 'Bantul, Yogyakarta', '0826377453886');
+(9, 'Panca Usaha', 'jalan panca usaha', '08555555555'),
+(10, 'Tegal Binangun', 'Tegal Binangun', '081222222222');
 
 -- --------------------------------------------------------
 
@@ -83,17 +79,18 @@ CREATE TABLE `paket_cuci` (
   `nama_paket` varchar(228) NOT NULL,
   `harga` int(11) NOT NULL,
   `outlet_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `paket_cuci`
 --
 
 INSERT INTO `paket_cuci` (`id_paket`, `jenis_paket`, `nama_paket`, `harga`, `outlet_id`) VALUES
-(20, 'kiloan', 'Paket Wangi Tahan Lama', 2200, 9),
-(21, 'kaos', 'Paket Cepat Kering', 1400, 10),
-(22, 'selimut', 'Paket Harum', 1500, 11),
-(23, 'kiloan', 'Paket Kering Wangi', 2500, 9);
+(20, 'kiloan', 'Cuci Lipat', 4000, 9),
+(21, 'kiloan', 'Cuci Setrika', 5000, 10),
+(23, 'bedcover', 'Badcover', 15000, 9),
+(24, 'selimut', 'Selimut', 15000, 9),
+(25, '', 'Jas', 15000, 10);
 
 -- --------------------------------------------------------
 
@@ -108,16 +105,15 @@ CREATE TABLE `pelanggan` (
   `jenis_kelamin` enum('L','P') NOT NULL,
   `telp_pelanggan` varchar(15) NOT NULL,
   `no_ktp` varchar(30) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `pelanggan`
 --
 
 INSERT INTO `pelanggan` (`id_pelanggan`, `nama_pelanggan`, `alamat_pelanggan`, `jenis_kelamin`, `telp_pelanggan`, `no_ktp`) VALUES
-(23, 'Lulu', 'Imogiri', 'P', '088888888888', '123456789'),
-(24, 'Lolo', 'Jl Bantul, Yogyakarta', 'L', '0821123311131', '0987654321'),
-(25, 'Apip Luki', 'Imogiri, Bantul', 'L', '08123456244567', '1234567890');
+(25, 'jannah', 'plaju', 'P', '08123456244567', '1234567890'),
+(26, 'faris', 'plaju', 'L', '082187259211', '1728363829');
 
 -- --------------------------------------------------------
 
@@ -128,7 +124,7 @@ INSERT INTO `pelanggan` (`id_pelanggan`, `nama_pelanggan`, `alamat_pelanggan`, `
 CREATE TABLE `transaksi` (
   `id_transaksi` int(11) NOT NULL,
   `outlet_id` int(11) DEFAULT NULL,
-  `kode_invoice` varchar(228) CHARACTER SET utf8mb4 DEFAULT NULL,
+  `kode_invoice` varchar(228) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `id_pelanggan` int(11) DEFAULT NULL,
   `tgl` datetime DEFAULT NULL,
   `batas_waktu` datetime DEFAULT NULL,
@@ -136,21 +132,19 @@ CREATE TABLE `transaksi` (
   `biaya_tambahan` int(11) DEFAULT NULL,
   `diskon` double DEFAULT NULL,
   `pajak` int(11) DEFAULT NULL,
-  `status` enum('baru','proses','selesai','diambil') CHARACTER SET utf8mb4 DEFAULT NULL,
-  `status_bayar` enum('dibayar','belum') CHARACTER SET utf8mb4 DEFAULT NULL,
+  `status` enum('baru','proses','selesai','diambil') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `status_bayar` enum('dibayar','belum') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `id_user` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `transaksi`
 --
 
 INSERT INTO `transaksi` (`id_transaksi`, `outlet_id`, `kode_invoice`, `id_pelanggan`, `tgl`, `batas_waktu`, `tgl_pembayaran`, `biaya_tambahan`, `diskon`, `pajak`, `status`, `status_bayar`, `id_user`) VALUES
-(36, 9, 'CLN202009033737', 23, '2020-09-03 04:37:43', '2020-09-10 12:00:00', '2020-09-03 04:40:03', 0, 0, 0, 'baru', 'dibayar', 1),
-(37, 9, 'CLN202009035702', 23, '2020-09-03 05:03:37', '2020-09-10 12:00:00', '2020-09-03 05:08:28', 0, 0, 0, 'baru', 'dibayar', 1),
-(39, 10, 'CLN202009034317', 24, '2020-09-03 05:19:12', '2020-09-10 12:00:00', '2020-09-03 05:21:41', 0, 0, 0, 'baru', 'dibayar', 7),
-(40, 9, 'CLN202009040521', 24, '2020-09-04 03:21:09', '2020-09-11 12:00:00', NULL, 0, 0, 0, 'baru', 'belum', 1),
-(41, 9, 'CLN202009040528', 25, '2020-09-04 03:28:21', '2020-09-11 12:00:00', '2020-09-04 03:29:00', 0, 0, 0, 'selesai', 'dibayar', 1);
+(41, 9, 'CLN202009040528', 25, '2020-09-04 03:28:21', '2020-09-11 12:00:00', '2020-09-04 03:29:00', 0, 0, 0, 'selesai', 'dibayar', 1),
+(42, 9, 'CLN202512011243', 26, '2025-12-01 02:43:23', '2025-12-08 12:00:00', '2025-12-01 02:43:56', 0, 0, 0, 'selesai', 'dibayar', 1),
+(43, 10, 'CLN202512023733', NULL, '2025-12-02 04:33:53', '2025-12-09 12:00:00', '2025-12-02 04:34:51', 0, 0, 0, 'baru', 'dibayar', 8);
 
 -- --------------------------------------------------------
 
@@ -160,22 +154,22 @@ INSERT INTO `transaksi` (`id_transaksi`, `outlet_id`, `kode_invoice`, `id_pelang
 
 CREATE TABLE `user` (
   `id_user` int(11) NOT NULL,
-  `nama_user` varchar(228) CHARACTER SET utf8mb4 DEFAULT NULL,
-  `username` varchar(228) CHARACTER SET utf8mb4 DEFAULT NULL,
-  `password` varchar(228) CHARACTER SET utf8mb4 DEFAULT NULL,
+  `nama_user` varchar(228) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `username` varchar(228) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `password` varchar(228) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `outlet_id` int(11) DEFAULT NULL,
-  `role` enum('admin','kasir','owner') CHARACTER SET utf8mb4 DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `role` enum('admin','kasir','owner') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `user`
 --
 
 INSERT INTO `user` (`id_user`, `nama_user`, `username`, `password`, `outlet_id`, `role`) VALUES
-(1, 'adminku', 'admin', '21232f297a57a5a743894a0e4a801fc3', 9, 'admin'),
+(1, 'adminku', 'admin', '21232f297a57a5a743894a0e4a801fc3', NULL, 'admin'),
 (3, 'ownerku', 'owner', '72122ce96bfec66e2396d2e25225d70a', 10, 'owner'),
-(6, 'Kasir Merah', 'kasirmerah', 'cdd9b843e296b9ff6745d122f19809d4', 9, 'kasir'),
-(7, 'Kasir Putih', 'kasirputih', '2443e07a602220051698d22bdc6ac718', 10, 'kasir');
+(6, 'Kasir', 'kasir', 'c7911af3adbd12a035b289556d96470a', 9, 'kasir'),
+(8, 'Kasir2', 'kasir2', '8c86013d8ba23d9b5ade4d6463f81c45', 10, 'kasir');
 
 --
 -- Indexes for dumped tables
@@ -232,37 +226,37 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `detail_transaksi`
 --
 ALTER TABLE `detail_transaksi`
-  MODIFY `id_detail` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id_detail` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT for table `outlet`
 --
 ALTER TABLE `outlet`
-  MODIFY `id_outlet` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id_outlet` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `paket_cuci`
 --
 ALTER TABLE `paket_cuci`
-  MODIFY `id_paket` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id_paket` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT for table `pelanggan`
 --
 ALTER TABLE `pelanggan`
-  MODIFY `id_pelanggan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id_pelanggan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT for table `transaksi`
 --
 ALTER TABLE `transaksi`
-  MODIFY `id_transaksi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
+  MODIFY `id_transaksi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
 
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- Constraints for dumped tables
